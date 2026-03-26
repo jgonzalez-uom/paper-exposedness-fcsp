@@ -1,0 +1,69 @@
+# ============================================
+# 🔬 Lab Research Standard .gitignore
+# ============================================
+
+# --- Data & Large Files (NEVER PUSH THESE) ---
+data/
+datasets/
+corpus/
+*.zip
+*.tar.gz
+*.7z
+
+# --- Model Checkpoints & Weights ---
+# PyTorch
+*.pth
+*.pt
+*.ckpt
+# TensorFlow / Keras
+*.h5
+*.pb
+*.weights
+*.saved_model/
+checkpoint
+# Generic
+model_final*
+*.onnx
+
+# --- Experiment Tracking & Logs ---
+logs/
+results/
+runs/               # TensorBoard
+wandb/              # Weights & Biases
+mlruns/             # MLFlow
+lightning_logs/     # PyTorch Lightning
+*.log
+*.tfevents.*
+
+# --- Python Environment ---
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+env/
+venv/
+lib/
+bin/
+include/
+conda-meta/
+
+# --- Jupyter Notebooks ---
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+# Ignore large output in notebooks if desired
+# .ipynb_checkpoints
+
+# --- IDE & OS Junk ---
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+.history/
+
+# --- Temporary / Buffer ---
+temp/
+tmp/
+debug/
