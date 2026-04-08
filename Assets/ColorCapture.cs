@@ -106,11 +106,12 @@ public class ColorCapture : MonoBehaviour
 
         string clipName = System.DateTime.Now.ToString().Replace('/', '-').Replace(' ', '_').Replace(':', '-');
         AnimationClip animation = anim.animation;
-        int frameCount = Mathf.RoundToInt(animation.length * framesPerSecond) - 1;
+        int frameCount = Mathf.RoundToInt(animation.length * framesPerSecond);
 
         System.IO.Directory.CreateDirectory(string.Format("{0}/{1}/", Application.persistentDataPath, clipName));
+        Debug.Log(frameCount);
 
-        for (int n = 0; n < frameCount; n++)
+        for (int n = 0; n <= frameCount; n++)
         {
             animator.Play(animation.name, -1, (float)n / frameCount);
 
@@ -149,7 +150,7 @@ public class ColorCapture : MonoBehaviour
                         var bytes = tex.EncodeToPNG();
                         Destroy(tex);
 
-                        string fileName = string.Format("{0}_({1},{2})_{3}m.{4}", clipName, x, y, distanceFromTarget.ToString(), "png");
+                        string fileName = string.Format("{0}_{6}={1}_({2},{3})_{4}m.{5}", c.name, clipName, x, y, distanceFromTarget.ToString(), "png", n);
                         System.IO.File.WriteAllBytes(string.Format("{0}/{1}/{2}", Application.persistentDataPath, clipName, fileName), bytes);
 
                         Destroy(tex);

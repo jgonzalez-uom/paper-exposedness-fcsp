@@ -9,6 +9,7 @@ public class TestImageProcessor : MonoBehaviour
     public PartsAnalysisScript partsAnalyzer;
     public Dictionary<string, long> indexedColors = new Dictionary<string, long>();
     public DataSaving dataSavingObject;
+    public int ignoreFilesSmallerThanBytes = 0;
     public string pPathFolderName;
     public string fileName;
     private Texture2D[] data;
@@ -35,9 +36,9 @@ public class TestImageProcessor : MonoBehaviour
             analysisStarted = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.Backspace) && !analysisStarted)
         {
-            LoadFile();
+            StartCoroutine(LoadFile());
         }
     }
 
@@ -74,6 +75,11 @@ public class TestImageProcessor : MonoBehaviour
         {
             count++;
 
+            if (file.Length < ignoreFilesSmallerThanBytes)
+            {
+                continue;
+            }
+
             byte[] bytes = File.ReadAllBytes(file.FullName);
             
             if (!ImageConversion.LoadImage(texture, bytes, false))
@@ -81,6 +87,8 @@ public class TestImageProcessor : MonoBehaviour
                 Debug.LogError("Couldn't load " + file.FullName + " into a texture.");
                 continue;
             }
+
+
 
             for (int x = 0; x < texture.width; x++)
             {
@@ -175,30 +183,43 @@ public class TestImageProcessor : MonoBehaviour
     //    return a.r == b.r && a.g == b.g && a.b == b.b;
     //}
 
-    void LoadFile()
+    IEnumerator LoadFile()
     {
+        analysisStarted = true;
         dataSavingObject.LoadFile("Data", fileName);
 
         indexedColors = new Dictionary<string, long>();
         pixelValues = new Dictionary<string, long>();
         totalValue = dataSavingObject._saveFile.totalValue;
+        int c = 0;
+        int pointC = dataSavingObject._saveFile.points.Count;
 
         Debug.Log("Loaded file...");
 
 
         foreach (var p in dataSavingObject._saveFile.points)
         {
-            Debug.Log(p.coordinate);
+            //Debug.Log(p.coordinate);
             string[] vals = p.coordinate.Split(',');
             int x = int.Parse(vals[0]);
             int y = int.Parse(vals[1]);
 
-            pixelValues.Add(p.coordinate, p.value); ;
+            pixelValues.Add(string.Format("{0},{1}", x, y), p.value);
             indexedColors.Add(StringColor(referenceTexture.GetPixel(x, y)), p.value);
+            c++;
+            progress.text =  string.Format("Loading: {0}/{1}", c, pointC);
+            yield return null;
         }
 
         textureEncoder.Render(pixelValues, dataSavingObject._saveFile.maxIndex, dataSavingObject._saveFile.maxValue, fileName);
         partsAnalyzer.ProcessPartData(pixelValues);
         partsAnalyzer.OutputPartStats(fileName + "_part_report");
+
+        analysisStarted = false;
+    }
+
+    public void ReRender()
+    {
+        textureEncoder.Render(pixelValues, dataSavingObject._saveFile.maxIndex, dataSavingObject._saveFile.maxValue, fileName);
     }
 }
