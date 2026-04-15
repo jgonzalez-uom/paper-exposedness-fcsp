@@ -45,20 +45,20 @@
 
 ## 🚀 Usage
 
-* The scene "Assets/Scenes/CityAnimation.unity" controls the animations and the recording. Numbers 1-4 on the numberpad will play and start recording scenarios A, B, C, and D respectively. The frames can be found in "C:\Users\[YourUserName]\AppData\LocalLow\JoseGonzUoMD\VisibilityProject\"
+* The scene "Assets/Scenes/CityAnimation.unity" controls the animations and the recording. Numbers 1-4 on the numberpad will play and start recording scenarios A, B, C, and D respectively. The frames can be found in "C:\Users\\\[YourUserName]\AppData\LocalLow\JoseGonzUoMD\VisibilityProject\"
 <p align="center">
   <img src="./images/Layout.png" width="700">
   <br><em>Figure 5: Illustration of the vehicle trajectory at each of the scenarios, as well as the position of the camera (1) and buildings (2). (A) Vehicle approaches from the West; (B) vehicle approaches from the East; (C) vehicle approaches from the North; (D) vehicle approaches from the South. (A-D).i is the vehicle position at the 0:00 timestamp; (A-D).ii is the vehicle position at 1:30; (A-D).iii is the vehicle position at 2:30; (A-D).iv is the vehicle position at 3:00.</em>
 </p>
 
-* The scenes "Assets/Scenes/IndividualAnalysisScene.unity" and "Assets/Scenes/SymmetricalAnalysisScene.unity" both contain the script that analyzes the generated images in the game object "Manager". 
+* The scenes "Assets/Scenes/IndividualAnalysisScene.unity" and "Assets/Scenes/SymmetricalAnalysisScene.unity" both contain the script that analyzes the generated images in the game object _Manager_. 
 
-    * The main difference is that IndividualAnalysisScene.unity, during the analysis of exterior parts, treats left and right parts as separate, while "SymmetricalAnalysisScene.unity" treats them as a single part.
+    * The main difference is during the analysis of exterior parts. _IndividualAnalysisScene.unity_, treats left and right parts as separate, while _SymmetricalAnalysisScene.unity_ treats them as a single part.
 
-    * To process recorded data, change the "PPathFolderName" variable to the name of the folder inside of "C:\Users\[YourUserName]\AppData\LocalLow\JoseGonzUoMD\VisibilityProject\" that contains the frames you would like to analyze. 
+    * To process recorded data, change the _PPathFolderName_ variable to the name of the folder inside of "C:\Users\\\[YourUserName]\AppData\LocalLow\JoseGonzUoMD\VisibilityProject\" that contains the frames you would like to analyze. 
 
-        * The texture containing the heatmap of visibility will be generated in the project with the name in the "File Name" variable. 
-        * The file containing the report of the vehicle exterior parts can be found in "C:\Users\[YourUserName]\AppData\LocalLow\JoseGonzUoMD\VisibilityProject\PartReports\" under the name "[File Name]_part_report.csv
+        * The texture containing the heatmap of visibility will be generated in the project with the name in the _File Name_ variable. 
+        * The file containing the report of the vehicle exterior parts can be found in "C:\Users\\\[YourUserName]\AppData\LocalLow\JoseGonzUoMD\VisibilityProject\PartReports\" under the name "[File Name]_part_report.csv
 
 <!-- ---
 
@@ -99,11 +99,11 @@ python main.py --mode test --checkpoint ./checkpoints/best_model.pth
 </p>
 <p align="center">
   <img src="./images/CResults.png" width="700">
-  <br><em>Figure 7: Pictures showing the exposedness of the exterior of the vehicle approaching a pedestrian from the lane farthest from them and from the south. Fig. X. Pictures showing the exposedness of the exterior of the vehicle when it approaches a pedestrian from the left, stopping before a crosswalk. (A) Front, (B) Rear, (C) Left side, (D) Right Side, (E) Front-Left Side, (F) Front-Right Side, (G) Back-Left Side, (H) Back-Right Side.</em>
+  <br><em>Figure 7: Pictures showing the exposedness of the exterior of the vehicle when it approaches a pedestrian from the front, stopping before a crosswalk. (A) Front, (B) Rear, (C) Left side, (D) Right Side, (E) Front-Left Side, (F) Front-Right Side, (G) Back-Left Side, (H) Back-Right Side.</em>
 </p>
 <p align="center">
   <img src="./images/DResults.png" width="700">
-  <br><em>Figure 8: Pictures showing the exposedness of the exterior of the vehicle when it’s approaching a pedestrian from the north, across an intersection. (A) Front, (B) Rear, (C) Left side, (D) Right Side, (E) Front-Left Side, (F) Front-Right Side, (G) Back-Left Side, (H) Back-Right Side.</em>
+  <br><em>Figure 8: Pictures showing the exposedness of the exterior of the vehicle when it’s approaching a pedestrian from behind, stopping before a crosswalk. (A) Front, (B) Rear, (C) Left side, (D) Right Side, (E) Front-Left Side, (F) Front-Right Side, (G) Back-Left Side, (H) Back-Right Side.</em>
 </p>
 
 <p align="center">
